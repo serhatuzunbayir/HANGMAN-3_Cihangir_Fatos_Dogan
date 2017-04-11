@@ -1,0 +1,1 @@
+factory,flower,chair,umbrella,queen,mouse,computer,bag,laptop,notebook,microsoft,apple,android,ios,intel,processor
