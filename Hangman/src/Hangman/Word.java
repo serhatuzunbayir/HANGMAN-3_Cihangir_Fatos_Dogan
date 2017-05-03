@@ -6,33 +6,43 @@ import java.util.Random;
 import java.util.Scanner;
 
 public class Word {
-	Word()
+	Word(int lg)
 	{
-		getWordList();
+		getWordList(lg);
 		assignWord();
 		createNullWord();
-		myWord = new StringBuilder(displayedResult);
+		myWord = new StringBuilder(createNullWord());
 	}
-	private StringBuilder myWord;
+	protected StringBuilder myWord;
 	public String secretWord;
 	public int counter =0;
-	private String displayedResult="";
 	public int truecounter =0;
-	private ArrayList<String> WordList = new ArrayList<String>();
-	private Scanner wordScanner = null;
-	private ArrayList<Character> letterList = new ArrayList<Character>();
-	private void createNullWord()
+	protected ArrayList<String> WordList = new ArrayList<String>();
+	protected Scanner wordScanner = null;
+	protected ArrayList<Character> letterList = new ArrayList<Character>();
+	protected String createNullWord()
 	{
+		String displayedResult = "";
 		for(int i=0; i<secretWord.length(); i++)
 		{
 			displayedResult = displayedResult+"_";
 		}
+		return displayedResult;
 	}
-	private void getWordList()
+	protected void getWordList(int lg)
 	{
 		try
 		{
-			wordScanner = new Scanner(new File("C:\\Users\\Dogan\\workspace\\Hangman\\src\\Hangman\\Words.txt"));
+			switch(lg)
+			{
+			case 1: wordScanner = new Scanner(new File("C:\\Users\\Dogan\\Desktop\\SE318\\HANGMAN-3_Cihangir_Fatos_Dogan\\Hangman\\src\\Hangman\\Words.txt"));
+			break;
+			case 2: wordScanner = new Scanner(new File("C:\\Users\\Dogan\\Desktop\\SE318\\HANGMAN-3_Cihangir_Fatos_Dogan\\Hangman\\src\\Hangman\\WordsTR.txt"));
+			break;
+			default : wordScanner = new Scanner(new File("C:\\Users\\Dogan\\Desktop\\SE318\\HANGMAN-3_Cihangir_Fatos_Dogan\\Hangman\\src\\Hangman\\Words.txt"));
+			break;
+			}
+				
 			while(wordScanner.hasNextLine()) {
 				String[] words = wordScanner.nextLine().split(",");
 				for(int i=0;i<words.length;i++) 
@@ -47,7 +57,7 @@ public class Word {
 			System.out.println("Your Error : " + e.getMessage());
 		}
 	}
-  	private void assignWord()
+	protected void assignWord()
 	{
 		Random random = new Random();
 		int number =random.nextInt(WordList.size());
@@ -56,7 +66,7 @@ public class Word {
 	public void addWord(String word){
 		WordList.add(word);
 	}
-	private void displayWord(){
+	protected void displayWord(){
 		int i = 0;
 		for (String item : WordList) {
 			System.out.println((i++)+" "+item);
